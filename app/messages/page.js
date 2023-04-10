@@ -20,8 +20,8 @@ async function getTime() {
 }
 
 export default async function MessagesPage() {
-  const messages = await getMessages();
-  const _time = await getTime();
+  const messages = await getMessages() || {};
+  const _time = await getTime() || {};
 
   return (
       <div>
