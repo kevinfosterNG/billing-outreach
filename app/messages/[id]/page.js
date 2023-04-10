@@ -1,8 +1,6 @@
-const messageUrl = 'http://localhost:3000/api/messages';
-
 async function getMessage(id) {
     //await new Promise(r => setTimeout(r, 2000));
-    const data  = await fetch(`${messageUrl}/${id}`);
+    const data  = await fetch(`http://127.0.0.1:3000/api/messages/${id}`);
     const message = await data.json();
   
     return message;

@@ -1,10 +1,8 @@
 import Link from 'next/link';
 
-const messageUrl = 'http://localhost:3000/api/messages';
-
 async function getMessages() {
   //await new Promise(r => setTimeout(r, 2000));
-  const res  = await fetch(messageUrl, {
+  const res  = await fetch("http://127.0.0.1:3000/api/messages", {
     headers: { 'Content-Type': 'application/json' },
   });
   const messages = await res.json();
