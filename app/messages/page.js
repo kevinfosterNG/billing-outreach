@@ -1,44 +1,34 @@
 import Link from 'next/link';
 
-//const messageUrl = 'http://localhost:3000/api/messages';
-const messageUrl = 'https://jsonplaceholder.typicode.com/posts';
+const messageUrl = 'http://localhost:3000/api/messages';
 
 async function getMessages() {
   //await new Promise(r => setTimeout(r, 2000));
-  const data  = await fetch(messageUrl);
-  const messages = await data.json();
-  //console.log(messages[0]);
+  const res  = await fetch(messageUrl, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const messages = await res.json();
+  //console.log("getMessages() got data: " + messages.length);
 
   return messages;
 }
 
-
+async function getTime() {
+  const res = await fetch('https://timeapi.io/api/Time/current/zone?timeZone=America/Chicago');
+  const _time = await res.json();
+  return _time;
+}
 
 export default async function MessagesPage() {
   const messages = await getMessages();
-  //console.log(messages[0]);
-
-  //const res = await fetch('http://worldtimeapi.org/api/timezone/America/Chicago');
-  const res = await fetch('https://timeapi.io/api/Time/current/zone?timeZone=America/Chicago');
-  const _time = await res.json();
-  
-  
-  //const messagesData = await fetch('https://jsonplaceholder.typicode.com/posts');
-  // const messages = await messagesData.json();
-  
+  const _time = await getTime();
 
   return (
       <div>
         <h3>
           Messages
         </h3>
-        <div>{typeof(messages)}</div>
-        <div>{messages.length}</div>
-        <div>
-          {messages[0].title} <br/>
-        </div>
         <hr/>
-
         <div>
             <table>
                 <thead>
@@ -49,24 +39,7 @@ export default async function MessagesPage() {
                   </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                      <td>
-                      <Link href="./messages/a">a</Link>
-                      </td>
-                      <td>
-                        <Link href="./messages/b">b</Link>
-                      </td>
-                      <td>
-                      <Link href="/messages/c">c</Link>
-                      </td>
-                      </tr>
-
-                      {messages.map((m) => <MessageRow key={m.id} message={m} />)}
-
-                      
-
-
-                      
+                  {messages.map((m) => <MessageRow key={m.id} message={m} />)}
                 </tbody>
             </table>
             <hr/>
@@ -81,8 +54,6 @@ export default async function MessagesPage() {
       </div>
   )
 }
-
-
 
 function MessageRow( {message} ) {
   const {userId, id, title, body} = message || {};

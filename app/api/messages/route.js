@@ -1,16 +1,15 @@
-
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   console.log("[GET] /api/messages/");
-  await new Promise(r => setTimeout(r, 2000));
+  //await new Promise(r => setTimeout(r, 2000));
 
-  const data = await fetch('https://jsonplaceholder.typicode.com/posts');
-  
-  return data.json();
-  //return Response.json( data );
-      //res.status(200).json(fake_data);
-    //return new Response("Hello, from API Messages");
-  }
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const data = await res.json();
+  console.log("API got data: ", data.length);
+  console.log("API got data type: ", typeof( data ));
+  return NextResponse.json(data);
+}
   
 export async function POST(req, res) {
   console.log("[POST] /api/messages/");
