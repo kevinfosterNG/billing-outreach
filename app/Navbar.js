@@ -9,7 +9,7 @@ import './NavItems.css';
 const MENU_LIST = [
   { text: "Home", href: "/" },
   { text: "Messages", href: "/messages" },
-  { text: "Messages Add", href: "/messages/add" },
+  { text: "Messages Add", href: "/messages/new" },
   { text: "HIPAA", href: "/hipaa" },
 ];
 const Navbar = () => {
