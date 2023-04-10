@@ -33,13 +33,13 @@ export default async function MessagesPage() {
             <table>
                 <thead>
                   <tr>
-                    <th>UserID</th>
-                    <th>Subject</th>
-                    <th>Body</th>
+                    <th>To:</th>
+                    <th>Date:</th>
+                    <th>Body:</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {messages.map((m) => <MessageRow key={m.id} message={m} />)}
+                  {messages.map((m) => <MessageRow key={m.sid} message={m} />)}
                 </tbody>
             </table>
             <hr/>
@@ -56,13 +56,13 @@ export default async function MessagesPage() {
 }
 
 function MessageRow( {message} ) {
-  const {userId, id, title, body} = message || {};
+  const {sid, to, dateSent, body} = message || {};
   return (
     <tr className=''>
     
-      <td><Link href={`/messages/${id}`}>{userId}</Link></td>
-      <td><Link href={`/messages/${id}`}>{title}</Link></td>
-      <td><Link href={`/messages/${id}`}>{body}</Link></td>
+      <td><Link href={`/messages/${sid}`}>{to}</Link></td>
+      <td><Link href={`/messages/${sid}`}>{dateSent}</Link></td>
+      <td><Link href={`/messages/${sid}`}>{body}</Link></td>
       
     </tr>
     

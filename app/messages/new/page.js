@@ -1,23 +1,29 @@
 
 export default async function MessagePage() {
-
     return (
       <form action="/api/messages" method="post">
-        <FormItem id="email" name="Email" type="text" label="Email:" />
-        <FormItem id="first" name="first" type="text" label="First name:" />
-        <FormItem id="last" name="last" type="text" label="Last name:" />
-        <FormItem id="title" name="title" type="text" label="Title:" />
+
+
+        <label htmlFor="to">To:</label>
+        <input 
+          type="text"
+          placeholder="+15551234567"
+          name="to"
+          //value={to}
+          //onChange={(e) => setTo(e.target.value)}
+        />
+
+        <br/>
+
+        <label htmlFor="message">Message:</label>
+        <textarea
+          placeholder='Message content...'
+          name="message"
+          //value={message}
+          //onChange={(e) => setMessage(e.target.value)}
+        />
+        
         <button type="submit">Submit</button>
       </form>
     )
 }
-
-function FormItem ({ id, name, type, label}) {
-  return (
-    <>
-        <label for={`${name}`}>{label}</label>
-        <input type={`${type}`} id={`${id}`} name={`${name}`} />
-        <br/>
-    </>
-  );
-};
