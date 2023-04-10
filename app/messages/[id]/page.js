@@ -1,6 +1,6 @@
 async function getMessage(id) {
     //await new Promise(r => setTimeout(r, 2000));
-    const data  = await fetch(`http://127.0.0.1:3000/api/messages/${id}`);
+    const data  = await fetch(`http://0.0.0.0:3000/api/messages/${id}`);
     const message = await data.json();
   
     return message;
@@ -11,7 +11,7 @@ export default async function MessagePage({
     searchParams,
 }) {
     //console.log(searchParams);
-    console.log("messages/page.js hit");
+    console.log("messages/[id]/ page hit");
     const message = await getMessage( params.id );
     
     return (

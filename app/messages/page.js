@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 async function getMessages() {
   //await new Promise(r => setTimeout(r, 2000));
-  const res  = await fetch("http://127.0.0.1:3000/api/messages", {
+  const res  = await fetch("http://0.0.0.0:3000/api/messages", {
     headers: { 'Content-Type': 'application/json' },
   });
   const messages = await res.json();
