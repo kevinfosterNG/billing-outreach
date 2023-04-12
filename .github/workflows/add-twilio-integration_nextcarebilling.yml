@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'nextcarebilling'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F95EA3090357428CADC399319C5F62AD }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0BE84B5465EE46F9BB02E221913A1A67 }}
           package: .
