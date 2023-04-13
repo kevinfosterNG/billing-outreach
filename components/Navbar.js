@@ -3,8 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
 // import Logo from "./Logo";
-import NavItem from "./NavItem";
-import './NavItems.css';
+import NavItem from "@/components/ui/nav";
+import '@/styles/navitems.css';
 
 const MENU_LIST = [
   { text: "Home", href: "/" },
