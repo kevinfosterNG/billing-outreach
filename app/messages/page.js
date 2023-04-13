@@ -1,10 +1,10 @@
 import Link from 'next/link';
+export const dynamic = 'force-dynamic'
 
-const messageUrl = 'http://localhost:3000/api/messages';
-
+const appUrl = process.env.NEXT_PUBLIC_APP_URL
 async function getMessages() {
   //await new Promise(r => setTimeout(r, 2000));
-  const res  = await fetch(messageUrl, {
+  const res  = await fetch(`${appUrl}/api/messages`, {
     headers: { 'Content-Type': 'application/json' },
   });
   const messages = await res.json();
@@ -20,8 +20,8 @@ async function getTime() {
 }
 
 export default async function MessagesPage() {
-  const messages = await getMessages();
-  const _time = await getTime();
+  const messages = await getMessages() || {};
+  const _time = await getTime() || {};
 
   return (
       <div>
@@ -29,42 +29,49 @@ export default async function MessagesPage() {
           Messages
         </h3>
         <hr/>
-        <div>
-            <table>
-                <thead>
-                  <tr>
-                    <th>UserID</th>
-                    <th>Subject</th>
-                    <th>Body</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {messages.map((m) => <MessageRow key={m.id} message={m} />)}
-                </tbody>
-            </table>
-            <hr/>
-            <h4>Footer timestamps:</h4>
-            <div className='bottom-date'>
-              {_time.dateTime} {_time.timeZone}
-            </div>
-            <div className='bottom-ip'>
-              {_time.client_ip}
-            </div>
+        <table>
+            <thead>
+              <tr>
+                <th>Date:</th>
+                <th>To:</th>
+                <th>Status: <InfoTwilioStatus/></th>
+                <th>Body:</th>
+              </tr>
+            </thead>
+            <tbody>
+              {messages.map((m) => <MessageRow key={m.sid} message={m} />)}
+            </tbody>
+        </table>
+        <hr/>
+        <h4>Footer timestamps:</h4>
+        <div className='bottom-date'>
+          {_time.dateTime} {_time.timeZone}
+        </div>
+        <div className='bottom-ip'>
+          {_time.client_ip}
         </div>
       </div>
   )
 }
 
+function InfoTwilioStatus() {
+  return (
+    <Link href="https://www.twilio.com/docs/sms/api/message-resource#appendix">ⓘ</Link>
+  )
+}
+
 function MessageRow( {message} ) {
-  const {userId, id, title, body} = message || {};
+  const {sid, to, dateSent, body, status} = message || {};
   return (
     <tr className=''>
-    
-      <td><Link href={`/messages/${id}`}>{userId}</Link></td>
-      <td><Link href={`/messages/${id}`}>{title}</Link></td>
-      <td><Link href={`/messages/${id}`}>{body}</Link></td>
-      
+      <td><Link href={`/messages/${sid}`}>{dateSent}</Link></td>
+      <td><Link href={`/messages/${sid}`}>{to}</Link></td>
+      <td><Link href={`/messages/${sid}`}>{status}</Link></td>
+      <td><Link href={`/messages/${sid}`}>{ truncateString(body,60) }</Link></td>
     </tr>
-    
   )
+}
+
+function truncateString( str, n) {
+  return (str.length > n) ? str.slice(0, n-1) + '...' : str;
 }
