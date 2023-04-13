@@ -3,7 +3,7 @@ async function getMessage(id) {
     const messageUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/messages/${id}`;
 
     //await new Promise(r => setTimeout(r, 2000));
-    const data  = await fetch( ${messageUrl} );
+    const data  = await fetch( messageUrl );
     const message = await data.json();
   
     return message;
