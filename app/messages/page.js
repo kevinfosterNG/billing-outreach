@@ -1,4 +1,6 @@
 import Link from 'next/link';
+export const dynamic = 'force-dynamic'
+
 const appUrl = process.env.NEXT_PUBLIC_APP_URL
 async function getMessages() {
   //await new Promise(r => setTimeout(r, 2000));

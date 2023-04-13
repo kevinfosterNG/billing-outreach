@@ -1,3 +1,5 @@
+//import ErrorPage from 'next/error'
+export const dynamic = 'force-dynamic'
 
 async function getMessage(id) {
     const messageUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/messages/${id}`;
@@ -13,7 +15,6 @@ export default async function MessagePage({
     params,
     searchParams,
 }) {
-    //console.log(searchParams);
     console.log("messages/[id]/ page hit");
     const message = await getMessage( params.id );
     
