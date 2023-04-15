@@ -19,7 +19,7 @@ export  default async function MessagePage() {
       <br />
 
       <select name="messageOptions">
-        {messageOptions.map(o => <option key={o.id} value={o.id}>{o.description}</option>)}
+        {messageOptions.map(o => <option key={o.id} value={o.id} disabled={!o.active} >{o.description}</option>)}
       </select>
 
       <br />
