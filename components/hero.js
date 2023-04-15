@@ -4,7 +4,7 @@ import '@/styles/hero.css'
 
 function hero() {
   return (
-    <Image src="/images/hero.svg" alt="hero" class="hero-image" width={800} height={300}  />
+    <Image src="/images/hero.svg" alt="hero" className="hero-image" width={800} height={300}  />
   )
 }
 

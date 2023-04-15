@@ -1,30 +1,62 @@
+import { CosmosClient, Database, Container } from "@azure/cosmos";
+
 const newMessageUrl = "/api/messages/sendMessage"
+
 //const newMessageUrl = "http://io-interface01:8787/api/messages/sendMessage"
 
-export default function MessagePage() {
-    return (
-      <form action={newMessageUrl} method="post" name="formNewMessage">
+export  default async function MessagePage() {
+  const messageOptions = await getMessageOptions("MessageMaster") || [];
 
-        <label htmlFor="to">To:</label>
-        <input type="text" placeholder="+15551234567" name="to" id="to" required
-          //value={to}
-          //onChange={(e) => setTo(e.target.value)}
-        />
+  return (
+    <form action={newMessageUrl} method="post" name="formNewMessage">
 
-        <br />
+      <label htmlFor="to">To:</label>
+      <input type="text" placeholder="+15551234567" name="to" id="to" required
+        //value={to}
+        //onChange={(e) => setTo(e.target.value)}
+      />
 
-        <label htmlFor="message">Message:</label>
-        <select name="message">
-          <option value={process.env.BILLING_MESSAGE_OPTIONS_TEST}>Email Option 1A</option>
-          <option value={process.env.BILLING_MESSAGE_OPTIONS_1A}>Email Option 1A</option>
-          <option value={process.env.BILLING_MESSAGE_OPTIONS_1B}>Email Option 1B</option>
-          <option value={process.env.BILLING_MESSAGE_OPTIONS_2A}>Email Option 2A</option>
-          <option value={process.env.BILLING_MESSAGE_OPTIONS_2B}>Email Option 2B</option>
-          <option value={process.env.BILLING_MESSAGE_OPTIONS_3A}>Email Option 3A</option>
-          <option value={process.env.BILLING_MESSAGE_OPTIONS_3B}>Email Option 3B</option>
-        </select>
-        
-        <button type="submit">Submit</button>
-      </form>
-    )
+      <br />
+
+      <select name="messageOptions">
+        {messageOptions.map(o => <option key={o.id} value={o.id} disabled={!o.active} >{o.description}</option>)}
+      </select>
+
+      <br />
+      
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+
+async function getMessageOptions(containerName) {
+  const client = await getCosmosClient();
+  const container = await getCosmosContainer(client, containerName)
+  const data = await getContainerData(container)
+    //.then((d) => console.log("Data: ", d));
+
+  return data;
+}
+
+async function getCosmosClient() {
+  return new CosmosClient({
+    key: process.env.COSMOSDB_KEY,
+    endpoint: process.env.COSMOSDB_ENDPOINT,
+  });
+}
+
+async function getCosmosContainer(client, container) {
+  return client
+  .database(process.env.COSMOSDB_DATABASE)
+  .container(container);
+}
+
+async function getContainerData(container){
+  // query to return all children in a family
+  const querySpec = {
+    query: 'SELECT * FROM c ',
+  }
+  const { resources } = await container.items.query(querySpec).fetchAll();
+  return resources;
+
 }
