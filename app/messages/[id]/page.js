@@ -1,8 +1,11 @@
 //import ErrorPage from 'next/error'
 export const dynamic = 'force-dynamic'
+const messageUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/messages";
 
 async function getMessage(id) {
-    const messageUrl = `${process.env.NEXT_PUBLIC_APP_URL}:${process.env.PORT}/api/messages/${id}`;
+    //const messageUrl = `${process.env.NEXT_PUBLIC_APP_URL}:${process.env.PORT}/api/messages/${id}`;
+    const messageUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/messages/" + id;
+    console.log("Fetching from: ",messageUrl);
 
     //await new Promise(r => setTimeout(r, 2000));
     const data = await fetch( messageUrl ) ;
