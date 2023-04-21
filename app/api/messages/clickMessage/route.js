@@ -45,7 +45,7 @@ export async function POST(req,res) {
         } catch(e) {
             //FROM: https://stackoverflow.com/questions/9637517/parsing-relaxed-json-without-eval
             data = JSON.parse( 
-                body.replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5')
+                body.toString().replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5')
                 );
         }
         
