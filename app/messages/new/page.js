@@ -15,8 +15,8 @@ export  default async function MessagePage() {
         //value={to}
         //onChange={(e) => setTo(e.target.value)}
       />
-
-      <br />
+      <input type="text" placeholder="1234567" name="enc_nbr" id="enc_nbr" required />
+      <input type="text" placeholder="0001" name="practice_id" id="practice_id" required />
 
       <select name="messageOptions">
         {messageOptions.map(o => <option key={o.id} value={o.id} disabled={!o.active} >{o.description}</option>)}
@@ -33,8 +33,6 @@ async function getMessageOptions(containerName) {
   const client = await getCosmosClient();
   const container = await getCosmosContainer(client, containerName)
   const data = await getContainerData(container)
-    //.then((d) => console.log("Data: ", d));
-
   return data;
 }
 
