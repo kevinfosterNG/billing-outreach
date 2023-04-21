@@ -6,8 +6,8 @@ async function getMessage(id) {
     //const messageUrl = `${process.env.NEXT_PUBLIC_APP_URL}:${process.env.PORT}/api/messages/${id}`;
     const messageUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/messages/" + id;
     if (messageUrl.contains("railay.app"))
-        messageUrl.replace(":80","");
-        
+        messageUrl = messageUrl.replace(":80","");
+
     console.log("Fetching from: ",messageUrl);
 
     //await new Promise(r => setTimeout(r, 2000));
