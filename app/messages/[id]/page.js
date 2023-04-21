@@ -1,12 +1,11 @@
 //import ErrorPage from 'next/error'
 export const dynamic = 'force-dynamic'
-const messageUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/messages";
 
 async function getMessage(id) {
     //const messageUrl = `${process.env.NEXT_PUBLIC_APP_URL}:${process.env.PORT}/api/messages/${id}`;
-    let messageUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/messages/" + id;
-    if (messageUrl.includes("railway.app"))
-        messageUrl = messageUrl.replace(":80","");
+    let messageUrl = process.env.NEXT_PUBLIC_APP_URL + "/api/messages/" + id;
+    //if (messageUrl.includes("railway.app"))
+        //messageUrl = messageUrl.replace(":80","");
 
     console.log("Fetching from: ",messageUrl);
 
