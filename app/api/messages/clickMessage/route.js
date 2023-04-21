@@ -1,7 +1,7 @@
 import { CosmosClient, Database, Container } from "@azure/cosmos";
 import { NextResponse } from 'next/server';
 
-const callbackUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/messages/clickMessage";
+const callbackUrl = process.env.NEXT_PUBLIC_APP_URL + "/api/messages/clickMessage";
 
 //test the callback locally
 export async function GET(req, res) {
@@ -19,7 +19,7 @@ export async function GET(req, res) {
         '}';
         console.log("Example JSON:\n", sample_callback);
     
-            console.log("handleFormInputAsync....");
+            console.log("posting to: ", callbackUrl);
             const response = await fetch(callbackUrl, {
               method: 'POST',
               body: JSON.stringify( sample_callback ),
@@ -29,11 +29,7 @@ export async function GET(req, res) {
             })
             //.then((response) => response.json())
             //.then((json) => console.log(json))
-
-                    
             return NextResponse.json(res);
-          
-
 }
 
 export async function POST(req,res) {
