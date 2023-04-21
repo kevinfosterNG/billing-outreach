@@ -1,6 +1,7 @@
 import { CosmosClient, Database, Container } from "@azure/cosmos";
 import { NextResponse } from 'next/server';
 
+// const callbackUrl = process.env.NEXT_PUBLIC_APP_URL + ":" + process.env.PORT + "/api/messages/clickMessage";
 const callbackUrl = process.env.NEXT_PUBLIC_APP_URL + "/api/messages/clickMessage";
 
 //test the callback locally
@@ -33,17 +34,22 @@ export async function GET(req, res) {
 }
 
 export async function POST(req,res) {
-    
+    try {
     const body = await req.json();
-    const data = JSON.parse(body);
     console.log("[POST] message", typeof(body));
     console.log("[POST] body: ", body);
+
+    const data = JSON.parse(body);
+    
     console.log("event: ", data.event_type);
     console.log("sms_sid: ", data.sms_sid);
     //const messageOptions = await getMessages("Messages") || [];
     upsertMessageClick("Messages", data);
 
     return data;
+    } catch (e) {
+        console.log("POST FAILURE: ",e);
+    }
   
 }
 
