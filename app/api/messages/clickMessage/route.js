@@ -1,23 +1,25 @@
+import { headers } from 'next/headers';
 import { CosmosClient, Database, Container } from "@azure/cosmos";
 import { NextResponse } from 'next/server';
+const vm = require('vm'); // or node:vm
 
 const callbackUrl = process.env.NEXT_PUBLIC_APP_URL + ":" + process.env.PORT + "/api/messages/clickMessage";
 //const callbackUrl = process.env.NEXT_PUBLIC_APP_URL + "/api/messages/clickMessage";
 
 //test the callback locally
 export async function GET(req, res) {
-    const sample_callback = '{\n'+
-        '  event_type: "click",\n'+
-        '  sms_sid: "SMxxx",\n'+
-        '  to: "+11234567890",\n'+
-        '  from: "+10987654321",\n'+
-        '  link: "https://www.longlink.com/original_link",\n'+
-        '  click_time: "2022-10-24T17:17:26.529Z",\n'+
-        '  clicked_at: 1666631846,\n'+
-        '  messaging_service_sid: "MGxxx",\n'+
-        '  account_sid: "ACxxx",\n'+
-        '  user_agent: "some_user_agent"\n'+
-        '}';
+    const sample_callback = new Object( {
+          event_type: "click",
+          sms_sid: "SMxxx",
+          to: "+11234567890",
+          from: "+10987654321",
+          link: "https://www.longlink.com/original_link",
+          click_time: "2022-10-24T17:17:26.529Z",
+          clicked_at: 1666631846,
+          messaging_service_sid: "MGxxx",
+          account_sid: "ACxxx",
+          user_agent: "some_user_agent"
+        });
         console.log("Example JSON:\n", sample_callback);
     
             console.log("posting to: ", callbackUrl);
@@ -38,20 +40,20 @@ export async function POST(req,res) {
         const body = await req.json();
         console.log("[POST] message", typeof(body));
         console.log("[POST] body: ", body);
+        
+        const headersList = headers();
+        const c = headersList.get("Content-Type");
+        console.log("Headers: ", c);
 
         let data;
         try {
-            data = JSON.parse( body );
+            data = JSON.parse( JSON.stringify(body) );
         } catch(e) {
             //FROM: https://stackoverflow.com/questions/9637517/parsing-relaxed-json-without-eval
-            data = JSON.parse( 
-                body.toString().replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5')
-                );
+            //data = JSON.parse( body.toString().replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5') );
+            data = JSON.parse( body.replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5') );
         }
         
-        //console.log("event: ", data.event_type);
-        //console.log("sms_sid: ", data.sms_sid);
-        //const messageOptions = await getMessages("Messages") || [];
         upsertMessageClick("Messages", data);
 
         return data;
@@ -80,15 +82,6 @@ async function getCosmosClient() {
     .container(container);
   }
   
-  async function getContainerData(container){
-    // query to return all items in a container
-    const querySpec = {
-      query: 'SELECT * FROM c ',
-    }
-    const { resources } = await container.items.query(querySpec).fetchAll();
-    return resources;
-  }
-
   //https://learn.microsoft.com/en-us/azure/cosmos-db/partial-document-update
   async function upsertContainerData(container, data) {
     const c = await container.item(data.sms_sid, data.sms_sid );
