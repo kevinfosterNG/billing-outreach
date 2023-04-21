@@ -5,7 +5,7 @@ const messageUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/
 async function getMessage(id) {
     //const messageUrl = `${process.env.NEXT_PUBLIC_APP_URL}:${process.env.PORT}/api/messages/${id}`;
     let messageUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/messages/" + id;
-    if (messageUrl.contains("railay.app"))
+    if (messageUrl.includes("railay.app"))
         messageUrl = messageUrl.replace(":80","");
 
     console.log("Fetching from: ",messageUrl);
