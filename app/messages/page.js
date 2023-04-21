@@ -1,9 +1,13 @@
 import Link from 'next/link';
 export const dynamic = 'force-dynamic'
 
-const messagesAPIUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/messages";
+let messagesAPIUrl = process.env.NEXT_PUBLIC_APP_URL+":"+process.env.PORT + "/api/messages";
 async function getMessages() {
   //await new Promise(r => setTimeout(r, 2000));
+
+  if (messagesAPIUrl.includes("railway.app"))
+    messagesAPIUrl = messagesAPIUrl.replace(":80","");
+
   const res  = await fetch( messagesAPIUrl , {
     headers: { 'Content-Type': 'application/json' },
   });
