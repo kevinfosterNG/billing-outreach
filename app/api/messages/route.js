@@ -7,6 +7,8 @@ export async function GET() {
   const res = await getMessageOptions("Messages");
   
   console.log("API got data type: ", typeof( res ));
+  res.setHeader('Cache-Control', 'no-store')
+  
   return NextResponse.json(res);
 }
 
