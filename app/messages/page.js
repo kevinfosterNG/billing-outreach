@@ -9,7 +9,6 @@ async function getMessages() {
 
   const res  = await fetch( messagesAPIUrl , {
     headers: { 'Content-Type': 'application/json' },
-    next: {revalidate: 60},
   });
   const messages = await res.json();
   console.log("getMessages() got data: " + messages.length);
