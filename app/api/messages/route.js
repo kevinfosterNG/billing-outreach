@@ -5,6 +5,7 @@ export async function GET() {
   console.log("[GET] /api/messages/    (from CosmosDB)");
 
   const messages = await getMessageOptions("Messages");
+  console.log("\t# of messages = ", messages.length);
   //console.log("API got data type: ", typeof( messages ));
 
   return NextResponse.json(messages, {headers: {'Cache-Control':'no-store'}});
