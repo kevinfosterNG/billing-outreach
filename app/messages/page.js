@@ -1,14 +1,17 @@
 import Link from 'next/link';
 export const dynamic = 'force-dynamic'
-
-const appUrl = process.env.NEXT_PUBLIC_APP_URL
+const messagesAPIUrl = process.env.NEXT_PUBLIC_APP_URL + "/api/messages";
 async function getMessages() {
   //await new Promise(r => setTimeout(r, 2000));
-  const res  = await fetch(`${appUrl}/api/messages`, {
+  
+  //if (messagesAPIUrl.includes("railway.app"))
+    //messagesAPIUrl = messagesAPIUrl.replace(":80","");
+
+  const res  = await fetch( messagesAPIUrl , {
     headers: { 'Content-Type': 'application/json' },
   });
   const messages = await res.json();
-  //console.log("getMessages() got data: " + messages.length);
+  console.log("getMessages() got data: " + messages.length);
 
   return messages;
 }
@@ -32,14 +35,18 @@ export default async function MessagesPage() {
         <table>
             <thead>
               <tr>
-                <th>Date:</th>
+                <th>Sent At:</th>
                 <th>To:</th>
                 <th>Status: <InfoTwilioStatus/></th>
-                <th>Body:</th>
+                <th>Practice #</th>
+                <th>Enc #:</th>
+                <th>Clicked?</th>
+                <th>Click Count</th>
+                <th>Clicked At</th>
               </tr>
             </thead>
             <tbody>
-              {messages.map((m) => <MessageRow key={m.sid} message={m} />)}
+              {messages.map((m) => <MessageRow key={m.id} message={m} />)}
             </tbody>
         </table>
         <hr/>
@@ -61,13 +68,18 @@ function InfoTwilioStatus() {
 }
 
 function MessageRow( {message} ) {
-  const {sid, to, dateSent, body, status} = message || {};
+  const {id, to, date_created, enc_nbr, practice_id, message_clicks} = message || {};
   return (
     <tr className=''>
-      <td><Link href={`/messages/${sid}`}>{dateSent}</Link></td>
-      <td><Link href={`/messages/${sid}`}>{to}</Link></td>
-      <td><Link href={`/messages/${sid}`}>{status}</Link></td>
-      <td><Link href={`/messages/${sid}`}>{ truncateString(body,60) }</Link></td>
+      <td><Link href={`/messages/${id}`}>{date_created}</Link></td>
+      <td></td>{/*to*/}
+      <td></td>{/*status*/}
+      <td><Link href={`/messages/${id}`}>{practice_id}</Link></td>
+      <td><Link href={`/messages/${id}`}>{enc_nbr}</Link></td>
+      {/* <td><Link href={`/messages/${sid}`}>{ truncateString(body,60) }</Link></td> */}
+      <td><Link href={`/messages/${id}`}>{message_clicks?.isClicked ? "Y" : "N"}</Link></td>
+      <td><Link href={`/messages/${id}`}>{message_clicks?.click_count || 0}</Link></td>
+      <td><Link href={`/messages/${id}`}>{message_clicks?.click_times[0] }</Link></td>
     </tr>
   )
 }

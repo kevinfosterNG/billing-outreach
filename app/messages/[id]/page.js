@@ -2,10 +2,15 @@
 export const dynamic = 'force-dynamic'
 
 async function getMessage(id) {
-    const messageUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/messages/${id}`;
+    //const messageUrl = `${process.env.NEXT_PUBLIC_APP_URL}:${process.env.PORT}/api/messages/${id}`;
+    let messageUrl = process.env.NEXT_PUBLIC_APP_URL + "/api/messages/" + id;
+    //if (messageUrl.includes("railway.app"))
+        //messageUrl = messageUrl.replace(":80","");
+
+    console.log("Fetching from: ",messageUrl);
 
     //await new Promise(r => setTimeout(r, 2000));
-    const data  = await fetch( messageUrl );
+    const data = await fetch( messageUrl ) ;
     const message = await data.json();
   
     return message;

@@ -11,11 +11,12 @@ export async function GET(request, {params}) {
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const fromPhone = process.env.TWILIO_PHONE_NUMBER;
   const client = require('twilio')(accountSid, authToken);
-  const res = await client.messages.get(_id).fetch();
-
-  console.log("API got data type: ", typeof( res ));
-  return NextResponse.json(res);
-    //.get("SMc1d2410fbe6cb342cf87c3071f070a34")
-    //.fetch()
-    //.then((message) => console.log(message));
+  try {
+    const res = await client.messages.get(_id).fetch();
+    
+    console.log("API got data type: ", typeof( res ));
+    return NextResponse.json(res);
+  } catch(e) {
+    return NextResponse.json({});
+  }
 }
