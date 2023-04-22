@@ -15,6 +15,7 @@ async function getMessageOptions(containerName) {
   const client = await getCosmosClient();
   const container = await getCosmosContainer(client, containerName)
   const data = await getContainerData(container)
+  client.dispose(); //is cosmosdb the cache problem?
   return data;
 }
 
