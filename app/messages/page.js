@@ -1,5 +1,7 @@
 import Link from 'next/link';
 export const dynamic = 'force-dynamic'
+export const revalidate = 60;
+
 const messagesAPIUrl = process.env.NEXT_PUBLIC_APP_URL + "/api/messages";
 async function getMessages() {
   //await new Promise(r => setTimeout(r, 2000));
@@ -9,6 +11,7 @@ async function getMessages() {
 
   const res  = await fetch( messagesAPIUrl , {
     headers: { 'Content-Type': 'application/json' },
+    next: {revalidate: 60},
   });
   const messages = await res.json();
   console.log("getMessages() got data: " + messages.length);
