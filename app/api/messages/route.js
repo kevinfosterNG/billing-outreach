@@ -4,12 +4,10 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   console.log("[GET] /api/messages/    (from CosmosDB)");
 
-  const res = await getMessageOptions("Messages");
-  
-  console.log("API got data type: ", typeof( res ));
-  res.setHeader('Cache-Control', 'no-store')
-  
-  return NextResponse.json(res);
+  const messages = await getMessageOptions("Messages");
+  //console.log("API got data type: ", typeof( messages ));
+
+  return NextResponse.json(messages, {headers: {'Cache-Control':'no-store'}});
 }
 
 async function getMessageOptions(containerName) {
