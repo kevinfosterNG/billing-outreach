@@ -8,14 +8,13 @@ export async function GET() {
   console.log("\t# of messages = ", messages.length);
   //console.log("API got data type: ", typeof( messages ));
 
-  return NextResponse.json(messages, {headers: {'Cache-Control':'no-store'}});
+  return NextResponse.json(messages);
 }
 
 async function getMessageOptions(containerName) {
   const client = await getCosmosClient();
   const container = await getCosmosContainer(client, containerName)
   const data = await getContainerData(container)
-  client.dispose(); //is cosmosdb the cache problem?
   return data;
 }
 
