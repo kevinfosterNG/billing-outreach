@@ -20,7 +20,7 @@ const Navbar = () => {
     <header>
       <nav className={`nav`}>
         <Link href={"/"}>
-            <h1 className="logo">NextCare Billing Outreach</h1>
+            <h1 className="logo">NextCare Billing</h1>
         </Link>
         <div
           onClick={() => setNavActive(!navActive)}

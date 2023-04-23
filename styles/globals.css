@@ -1,3 +1,38 @@
+:root {
+  --widget-1: #3EA1BD;
+  --widget-2: #294B67;
+  --widget-3: #294B6733;
+
+  --global-color-lightblue: #72B7CC;
+  --global-color-pink: #f3bfbb;
+  --global-color-orangered: #E5665D;
+  
+  --global-color-secondary: #54595F;
+  --global-color-text: #7A7A7A;
+  --global-color-accent: #61CE70;
+  --global-color-white: #FFF;
+  --global-color-offwhite: #F6F6F6;
+  --global-color-black: #000000;
+
+  --global-color-b534f63: #294B6733;
+  --global-color-44dd3e1e: #294B67;
+  --global-color-1adb1dce: #007780;
+  --global-color-77a433b7: #008C95;
+  --global-color-a33f322: #3EA1BD;
+  --global-color-primary: #6EC1E4;
+  --global-color-9029439: #72B7CC;
+  --global-color-387a61e: #E7EEF0;
+  --global-color-751fe743: #349D47;
+  
+  --global-color-15b4b964: RGBA(41, 75, 103, 0.2);
+  --global-color-04b97a4: #294B67;
+  
+  
+}
+
 body {
-  background-color: #fafafa;
+  background: var(--global-color-offwhite);
+  min-height: 400px;
+  display:grid;
+  place-content: center;
 }
