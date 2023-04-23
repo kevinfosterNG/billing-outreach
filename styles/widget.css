@@ -1,0 +1,78 @@
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.widget-wrapper {
+  background: var(--clr-2);
+  
+  display: grid;
+  place-content: center;
+  margin-top: 40px;
+  grid-gap: 2rem;
+}
+
+.widget {
+    background: var(--global-color-9029439);
+    border-radius: 0.5rem;
+    position: relative;
+    color: var(--global-color-44dd3e1e);
+    font-size: large;
+    text-align: center;
+    margin: auto;
+}
+
+.widget::before,
+.widget::after {
+  content: "";
+  position: absolute;
+  inset: -0.5rem;
+  z-index: -1;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--widget-1),
+    var(--widget-2),
+    var(--widget-3),
+    var(--widget-2),
+    var(--widget-1)
+  );
+  border-radius: inherit;
+  animation: rotation 20s linear infinite;
+}
+
+.widget::after {
+  filter: blur(3.5rem);
+}
+
+@keyframes rotation {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+.widget-button {
+  background: var(--global-color-orangered);
+  color: var(--global-color-white);
+  cursor:pointer;
+
+  font-weight: 700;
+  text-align: center;
+  border-radius: 5px;
+  border: 2px solid var(--global-color-orangered);
+
+  width: auto;
+  padding: 14px 8px;
+  margin-right: 20px;
+
+}
+
+.widget-button:hover{
+  background-color: var(--global-color-white);
+  color: var(--global-color-orangered);
+  text-decoration: none;
+  border: 2px solid var(--global-color-orangered);
+}

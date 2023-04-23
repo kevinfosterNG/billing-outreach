@@ -1,5 +1,5 @@
 import { CosmosClient, Database, Container } from "@azure/cosmos";
-
+export const dynamic = 'force-dynamic'
 const newMessageUrl = "/api/messages/sendMessage"
 
 //const newMessageUrl = "http://io-interface01:8787/api/messages/sendMessage"
