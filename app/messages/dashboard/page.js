@@ -45,7 +45,7 @@ export default async function MessagesPage() {
             </tr>
           </thead>
           <tbody>
-            {dashboardData.map((m) => <MessageRow key={m.id} message={m} />)}
+            {dashboardData.map((m) => <MessageRow key={m.sid} message={m} />)}
           </tbody>
         </table>
         
