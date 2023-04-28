@@ -2,10 +2,11 @@
 import React from 'react'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import '@/styles/chart.css'
 
 ChartJS.register( CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend );
 
-const DashboardBarMessages = (props) => {
+const DashboardMessagesBarChart = (props) => {
     const options = {
     responsive: true,
     plugins: {
@@ -40,7 +41,9 @@ const DashboardBarMessages = (props) => {
       };
 
     return (
+      <div className='chart'>
         <Bar options={options} data={data} />
+      </div>
   )
 }
 
@@ -49,4 +52,4 @@ function onlyUnique(value, index, array) {
 return array.indexOf(value) === index;
 }
 
-export default DashboardBarMessages
+export default DashboardMessagesBarChart

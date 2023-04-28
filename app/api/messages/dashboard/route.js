@@ -35,7 +35,10 @@ async function getMessageOptions(containerName) {
   async function getContainerData(container){
     // query to return all children in a family
     const querySpec = {
-      query: "SELECT m.message_type, IS_DEFINED(m.message_clicks.isClicked) AS isClicked, COUNT(m.id) AS cnt FROM Messages m WHERE m.id<>'SMxxx' GROUP BY m.message_type, m.message_clicks.isClicked",
+      query: "SELECT m.message_type, IS_DEFINED(m.message_clicks.isClicked) AS isClicked, COUNT(m.id) AS cnt "+
+      "FROM Messages m "+
+      "WHERE m.id<>'SMxxx' "+
+      "GROUP BY m.message_type, m.message_clicks.isClicked",
     }
     const { resources } = await container.items.query(querySpec).fetchAll();
     return resources;
