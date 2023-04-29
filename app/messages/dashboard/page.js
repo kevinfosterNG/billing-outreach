@@ -19,7 +19,7 @@ async function getMessagesSummary() {
     next: {revalidate: 60},
   });
   const messages = await res.json();
-  console.log("getMessagesSummary() got data: " + messages.length);
+  //console.log("getMessagesSummary() got data: " + messages.length);
 
   return messages;
 }
@@ -32,7 +32,7 @@ async function getTime() {
 
 export default async function MessagesPage() {
   const dashboardData = await getMessagesSummary() || {};
-  console.log("dashboardData = ", dashboardData);
+  //console.log("dashboardData = ", dashboardData);
   const _time = await getTime() || {};
 
   return (

@@ -18,33 +18,49 @@ const DashboardMessagesPaymentsBarChart = (props) => {
         text: 'Payment Totals Received by Message Type',
         },
       },
+      scales: {
+        y: {
+            ticks: {
+                // Include a dollar sign in the ticks
+                callback: function(value, index, ticks) {
+                    return '$' + value;
+                }
+            }
+        }
+      }
     };
 
       const labels = props.messages.map((l) => l.message_type).filter(onlyUnique);
-      //const clicked_data = props.messages.filter(click => click.isClicked === true).map((l) => l.cnt);
-      //const unclicked_data = props.messages.filter(click => click.isClicked === false).map((l) => l.cnt);
+      const payments = [];
+      //group and add paid_amt values for all like message_types
+      props.messages.reduce(function(res, value) {
+          if (!res[value.message_type]) {
+            res[value.message_type] = { message_type: value.message_type, paid_amt: 0 };
+            payments.push(res[value.message_type])
+          }
+          res[value.message_type].paid_amt += value.paid_amt;
+          return res;
+        }, {});
 
-      const payment_data_1 = [ 3211.29, 2882.77, 475.94, 850.38, 933.37, 827.46];
-      const payment_data_2 = [0,0,0,0,0,0,];
 
       const data = {
         labels,
         datasets: [
             {
               label: 'April 28, 2023',
-              data: payment_data_1,
+              data: payments.map((p) => p.paid_amt),
               backgroundColor: '#349D47',
             },
-            {
-              label: 'April 29, 2023',
-              data: payment_data_2,
-              //backgroundColor: 'rgba(255, 159, 64, 0.2)',
-            },
-            {
-              label: 'April 30, 2023',
-              data: payment_data_2,
-              //backgroundColor: 'rgba(255, 205, 86, 0.2)',
-            },
+            // {
+            //   label: 'April 29, 2023',
+            //   data: payment_data_2,
+            //   //backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            // },
+            // {
+            //   label: 'April 30, 2023',
+            //   data: payment_data_2,
+            //   //backgroundColor: 'rgba(255, 205, 86, 0.2)',
+            // },
           ],
       };
 
