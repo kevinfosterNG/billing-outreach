@@ -6,9 +6,9 @@ const DashboardMessagesTotalCount = (props) => {
   console.log("Total #: " , messages);
 
     return (
-        <div>
-          <div>Messages sent:</div>
-          <div>{messages}</div>
+        <div className='dashboard-single-metric'>
+          <div className='metric-label'>Messages sent:</div>
+          <div className='metric-value'>{messages}</div>
         </div>
   )
 }

@@ -6,9 +6,9 @@ const DashboardMessagesPayments = (props) => {
   console.log("payments: ", payments);
 
     return (
-        <div>
-          <div>Payments received:</div>
-          <div>$ {payments}</div>
+        <div className='dashboard-single-metric'>
+          <div className='metric-label'>Payments received:</div>
+          <div className='metric-value'>$ {payments}</div>
         </div>
   )
 }

@@ -1,3 +1,20 @@
 canvas {
     max-height: 350px;
 }
+.dashboard-single-metric {
+    color: var(--global-color-text);
+    border: 1px solid var(--global-color-offwhite);
+    box-shadow: 0px 0px 11px 0px var(--global-color-b534f63);
+    border-radius: 8px;
+    padding: 4px;
+    margin: 1rem 0 1rem 0;
+    
+}
+.metric-label {
+    font-size: 14px;
+}
+.metric-value {
+    font-size: 30px;
+    color: rgb(140, 140, 140);
+    text-align: right;
+}

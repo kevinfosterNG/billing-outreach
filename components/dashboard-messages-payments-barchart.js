@@ -31,6 +31,7 @@ const DashboardMessagesPaymentsBarChart = (props) => {
     };
 
       const labels = props.messages.map((l) => l.message_type).filter(onlyUnique);
+      console.log(labels);
       const payments = [];
       //group and add paid_amt values for all like message_types
       props.messages.reduce(function(res, value) {
@@ -42,12 +43,11 @@ const DashboardMessagesPaymentsBarChart = (props) => {
           return res;
         }, {});
 
-
       const data = {
         labels,
         datasets: [
             {
-              label: 'April 28, 2023',
+              label: 'Total Payments',
               data: payments.map((p) => p.paid_amt),
               backgroundColor: '#349D47',
             },
