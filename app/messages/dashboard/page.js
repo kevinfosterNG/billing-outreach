@@ -59,18 +59,3 @@ export default async function MessagesPage() {
       </div>
   )
 }
-
-function MessageRow( {message} ) {
-  const {cnt, isClicked, message_type} = message || {};
-  return (
-    <tr className=''>
-      <td>{message_type}</td>
-      <td>{isClicked ? "Y" : "N"}</td>
-      <td>{cnt}</td>
-    </tr>
-  )
-}
-
-function truncateString( str, n) {
-  return (str.length > n) ? str.slice(0, n-1) + '...' : str;
-}
