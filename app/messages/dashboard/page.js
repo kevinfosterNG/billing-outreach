@@ -37,7 +37,7 @@ export default async function MessagesPage() {
       <div>
         <h3>
           Dashboard
-          <Link className='' href='/api/messages/dashboard?refresh=true'> {String.fromCodePoint('0x21BB')} </Link>
+          
         </h3>
         <hr/>
         <DashboardMessagesClickedCount messages={dashboardData} />

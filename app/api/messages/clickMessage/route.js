@@ -35,12 +35,7 @@ export async function GET(req, res) {
 export async function POST(req,res) {
     try {
         const body = await req.json();
-        console.log("[POST] message", typeof(body));
-        console.log("[POST] body: ", body);
-        
-        const headersList = headers();
-        const c = headersList.get("Content-Type");
-        console.log("Headers: ", c);
+        console.log(`[POST] ${callbackUrl}`);
 
         let data;
         try {
