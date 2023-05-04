@@ -9,8 +9,10 @@ import '@/styles/navitems.css';
 const MENU_LIST = [
   { text: "Home", href: "/" },
   { text: "Messages", href: "/messages" },
-  { text: "Messages Add", href: "/messages/new" },
+  // { text: "Messages Add", href: "/messages/new" },
+  { text: "Dashboard", href: "/messages/dashboard" },
   { text: "HIPAA", href: "/hipaa" },
+  { text: "Employee Login", href: "/login" },
 ];
 const Navbar = () => {
   const [navActive, setNavActive] = useState(null);

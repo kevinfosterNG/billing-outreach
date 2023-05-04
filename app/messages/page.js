@@ -14,7 +14,8 @@ async function getMessages() {
     next: {revalidate: 60},
   });
   const messages = await res.json();
-  console.log("getMessages() got data: " + messages.length);
+   //console.log("getMessages() got data: " + messages.length);
+   //console.log("message = ", messages);
 
   return messages;
 }

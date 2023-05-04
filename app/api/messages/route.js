@@ -4,11 +4,11 @@ export const dynamic = 'force-dynamic'
 
 export async function GET() {
   console.log("[GET] /api/messages/    (from CosmosDB)");
+  //disable this endpoint for the time begin
+  return NextResponse.json({});
 
   const messages = await getMessageOptions("Messages");
   console.log("\t# of messages = ", messages.length);
-  //console.log("API got data type: ", typeof( messages ));
-
   return NextResponse.json(messages);
 }
 
