@@ -10,6 +10,8 @@ const MENU_LIST = [
   { text: "Home", href: "/" },
   { text: "Messages", href: "/messages" },
   // { text: "Messages Add", href: "/messages/new" },
+  { text: "Campaigns", href: "/campaigns" },
+  
   { text: "Dashboard", href: "/messages/dashboard" },
   { text: "HIPAA", href: "/hipaa" },
   { text: "Employee Login", href: "/login" },

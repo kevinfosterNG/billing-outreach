@@ -21,6 +21,7 @@
     font-size: large;
     text-align: center;
     margin: auto;
+    
 }
 
 .widget::before,
@@ -75,4 +76,5 @@
   color: var(--global-color-orangered);
   text-decoration: none;
   border: 2px solid var(--global-color-orangered);
+  transition: all 0.5s;
 }
