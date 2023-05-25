@@ -62,10 +62,11 @@ async function getContainerData(container, id){
       
   // query to return all children in a family
   const querySpec = {
-    query: "SELECT m.practice_id, m.enc_nbr, m.id, m.date_created, m.message_type FROM Messages m "
-     +"WHERE m.id = '"+id+"' "
-  //   "or m.id = 'SM14f2dcc7a15a15d5bb7ae6d0804085e7' " + 
-  //   "or m.id = 'SMe6db53e563f4b7b0f459643cf499a2d3' "  
+    query: "SELECT m.practice_id, m.enc_nbr, m.id, m.date_created, m.message_type FROM Messages m WHERE m.id = '@id' ",
+     "parameters": [
+      {"name": "@id", "value": id},
+     ]
+
   }
   const { resources } = await container.items.query(querySpec).fetchAll();
   return resources;

@@ -1,5 +1,8 @@
 import '@/styles/globals.css';
 import Navbar from '@/components/Navbar';
+import { Session } from 'next-auth'
+import { headers } from 'next/headers'
+import { NextAuthProvider } from "./providers";
 
 export const metadata = {
   title: {
@@ -40,14 +43,16 @@ export const metadata = {
   manifest: `${process.env.NEXT_PUBLIC_APP_URL}/site.webmanifest`,
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
     <html lang="en" className={"bg-white font-sans text-slate-900 antialiased"}>
       <head />
       <body className="min-h-screen">
         <main>
-          <Navbar />
-          {children}
+          <NextAuthProvider>
+            <Navbar />
+            {children}
+          </NextAuthProvider>
         </main>
       </body>
     </html>

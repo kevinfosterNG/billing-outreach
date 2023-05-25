@@ -2,54 +2,45 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
-// import Logo from "./Logo";
+import { useSession } from "next-auth/react";
 import NavItem from "@/components/ui/nav";
 import '@/styles/navitems.css';
+import {LoginButton, LogoutButton, ProfileButton, SessionButtons, } from "@/components/auth-buttons";
 
 const MENU_LIST = [
   { text: "Home", href: "/" },
   { text: "Messages", href: "/messages" },
-  // { text: "Messages Add", href: "/messages/new" },
   { text: "Campaigns", href: "/campaigns" },
-  
   { text: "Dashboard", href: "/messages/dashboard" },
   { text: "HIPAA", href: "/hipaa" },
-  { text: "Employee Login", href: "/login" },
 ];
 const Navbar = () => {
-  const [navActive, setNavActive] = useState(null);
-  const [activeIdx, setActiveIdx] = useState(-1);
+  const { data: session, status } = useSession();
 
   return (
     <header>
-      <nav className={`nav`}>
-        <Link href={"/"}>
-            <h1 className="logo">NextCare Billing</h1>
-        </Link>
-        <div
-          onClick={() => setNavActive(!navActive)}
-          className={`nav__menu-bar`}
-        >
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        <div className={`${navActive ? "active" : ""} nav__menu-list`}>
-          {MENU_LIST.map((menu, idx) => (
-            <div
-              onClick={() => {
-                setActiveIdx(idx);
-                setNavActive(false);
-              }}
-              key={menu.text}
-            >
-              <NavItem active={activeIdx === idx} {...menu} />
-            </div>
-          ))}
-        </div>
+      <nav className='nav'>
+        <LeftHandLogo/>
+
+          <div className='nav__menu-list'>
+            {MENU_LIST.map((menu, idx) => (
+                status == "authenticated" && 
+                <NavItem {...menu} />
+
+            ))}
+            <SessionButtons />
+          </div>
+          
       </nav>
     </header>
   );
 };
+
+function LeftHandLogo() {
+  return (
+  <Link href={"/"}>
+    <Image src="/images/nextcare-logo.png" alt="logo" className="logo-image" width={160} height={36}  />
+  </Link>
+)}
 
 export default Navbar;

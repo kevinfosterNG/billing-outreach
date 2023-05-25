@@ -2,14 +2,13 @@ import { CosmosClient, Database, Container } from "@azure/cosmos";
 import { getContainer, getClient, getAllData } from "@/utils/DatabaseWrapper";
 
 export const dynamic = 'force-dynamic'
-const newMessageUrl = "/api/messages/sendMessage"
-//const newMessageUrl = "http://io-interface01:8787/api/messages/sendMessage"
+const newCampaignUrl = "/api/campaign"
 
 export default async function CampaignsPage() {
   const messageOptions = await getCampaigns("Campaigns") || [];
 
   return (
-    <form action={newMessageUrl} method="post" name="formNewMessage">
+    <form action={newCampaignUrl} method="post" name="formNewMessage">
 
       <label htmlFor="to">To:</label>
       <input type="text" placeholder="+15551234567" name="to" id="to" required />
