@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import NavItem from "@/components/ui/nav";
 import '@/styles/navitems.css';
-import {LoginButton, LogoutButton, ProfileButton, SessionButtons, } from "@/components/auth-buttons";
+import { LoginButton, LogoutButton, ProfileButton, SessionButtons } from "@/components/auth-buttons";
 
 const MENU_LIST = [
   { text: "Home", href: "/" },
@@ -20,16 +20,15 @@ const Navbar = () => {
   return (
     <header>
       <nav className='nav'>
-        <LeftHandLogo/>
+        <LeftHandLogo key={'brandlogonav'}/>
 
-          <div className='nav__menu-list'>
-            {MENU_LIST.map((menu, idx) => (
-                status == "authenticated" && 
-                <NavItem {...menu} />
-
-            ))}
-            <SessionButtons />
-          </div>
+        <div className='nav__menu-list'>
+          {MENU_LIST.map((menu, idx) => (
+            status == "authenticated" && 
+            <NavItem {...menu} key={idx} />
+          ))}
+          <SessionButtons />
+        </div>
           
       </nav>
     </header>

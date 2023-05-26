@@ -3,8 +3,8 @@ import '@/styles/loading-gradient.css';
 
 export default function  LoadingGradient() {
   return (
-    <div class="placeholder">
-      <div class="animated-background"></div>
+    <div className="placeholder">
+      <div className="animated-background"></div>
     </div>
   )
 }
