@@ -26,13 +26,9 @@
   
   --global-color-15b4b964: RGBA(41, 75, 103, 0.2);
   --global-color-04b97a4: #294B67;
-  
-  
 }
 
 body {
   background: var(--global-color-offwhite);
   min-height: 400px;
-  display:grid;
-  place-content: center;
 }
