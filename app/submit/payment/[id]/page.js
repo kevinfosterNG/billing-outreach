@@ -47,7 +47,7 @@ export default async function PaymentPage({params,searchParams}) {
         if (GUESSES_LEFT <= 0)
             return <ChallengeFailed />
         
-        return (<ChallengeForm errorMessage={'Invalid answer.'} attemptsRemaining={GUESSES_LEFT} />);
+        return (<ChallengeForm errorMessage={"Invalid answer."} attemptsRemaining={GUESSES_LEFT} />);
     }
 }
 
@@ -63,7 +63,7 @@ export function ChallengeForm(props) {
             { props.errorMessage && <p className="text-align-center">{props.errorMessage}</p> }
             
             <form>
-                <label>Enter the account holder's date of birth:</label>
+                <label>Enter the account holder&apos;s date of birth:</label>
                 <input name="challenge"  type="date" max={max_dob} />
                 <br/>
                 <button type="submit">Submit</button>
